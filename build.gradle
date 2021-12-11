@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass = "mipaquete.Launcher"
+    mainClass = "grupo1.tresenraya.Launcher"
 }
 
 javafx {
@@ -29,12 +29,12 @@ dependencies {
 }
 
 jar {
-    baseName = 'proyecto_grupo_2'
+    baseName = 'Grupo_1'
     duplicatesStrategy = 'include'
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }  
     manifest {
         attributes(
-            'Main-Class': 'mipaquete.Launcher'
+            'Main-Class': 'grupo1.tresenraya.Launcher'
         )
     }
 }
