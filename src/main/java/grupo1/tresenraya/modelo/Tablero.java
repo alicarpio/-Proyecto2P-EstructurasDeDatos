@@ -53,4 +53,31 @@ public class Tablero {
              && tablero[1][1].getJugador() == jugador
              && tablero[2][0].getJugador() == jugador);
     }
+    
+    public int pJugador(Jugador jugador) {
+        int p = 0;
+        for (int i = 0; i < 3; i++) {
+            if ((tablero[i][0].getJugador() == jugador || !tablero[i][0].isMarked())
+                    && (tablero[i][1].getJugador() == jugador || !tablero[i][1].isMarked())
+                    && (tablero[0][2].getJugador() == jugador || !tablero[i][3].isMarked())) {
+                p++;
+            }
+            if ((tablero[0][i].getJugador() == jugador || !tablero[0][i].isMarked())
+                    && (tablero[1][i].getJugador() == jugador || !tablero[1][i].isMarked())
+                    && (tablero[2][i].getJugador() == jugador || !tablero[2][i].isMarked())) {
+                p++;
+            }
+        }
+        if ((tablero[0][0].getJugador() == jugador || !tablero[0][0].isMarked())
+                && (tablero[1][1].getJugador() == jugador || !tablero[1][1].isMarked())
+                && (tablero[2][2].getJugador() == jugador || !tablero[2][2].isMarked())) {
+            p++;
+        }
+        if ((tablero[0][2].getJugador() == jugador || !tablero[0][2].isMarked())
+                && (tablero[1][1].getJugador() == jugador || !tablero[1][1].isMarked())
+                && (tablero[2][0].getJugador() == jugador || !tablero[2][0].isMarked())) {
+            p++;
+        }
+        return p;
+    }
 }
