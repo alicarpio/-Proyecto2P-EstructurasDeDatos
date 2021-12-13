@@ -15,15 +15,15 @@ public class RoseTree<T> {
     public Queue<RoseTree<T>> getChildren() {
         return children;
     }
-    
-    
+
     public RoseTree(T content, Comparator<T> cmp) {
         this.content = content;
         this.children = new PriorityQueue(cmp);
-    }   
-    
-    
-    public void addChildren(RoseTree<T> child) {
-        this.getChildren().offer(child);
+    }
+
+    @SafeVarargs
+    final public void addChildren(RoseTree<T>... ts) {
+        for (RoseTree<T> t : ts)
+            children.offer(t);
     }
 }

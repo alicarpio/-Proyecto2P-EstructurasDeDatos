@@ -2,7 +2,6 @@ package grupo1.tresenraya.modelo;
 
 public class Tablero {
     private Cell[][] tablero;
-    private int utilidad;
 
     public Tablero() {
         tablero = new Cell[3][3];
@@ -53,8 +52,8 @@ public class Tablero {
              && tablero[1][1].getJugador() == jugador
              && tablero[2][0].getJugador() == jugador);
     }
-    
-    public int pJugador(Jugador jugador) {
+
+    public int getUtilidad(Jugador jugador) {
         int p = 0;
         for (int i = 0; i < 3; i++) {
             if ((tablero[i][0].getJugador() == jugador || !tablero[i][0].isMarked())
