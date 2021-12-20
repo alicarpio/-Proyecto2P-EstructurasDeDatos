@@ -26,6 +26,8 @@ dependencies {
     runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:win"
     runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:linux"
     runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:mac"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 }
 
 jar {
