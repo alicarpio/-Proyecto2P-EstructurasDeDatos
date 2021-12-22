@@ -16,13 +16,15 @@ public class MaxHeap<E extends Comparable<E>> {
 
     @SafeVarargs
     public MaxHeap(E... elems) {
-        length = elems.length + 1;
-        cap = elems.length + 1;
-        this.elems = elems;
+        length = elems.length;
+        cap = length * 2;
+        this.elems = (E[])new Comparable[cap];
         // Insertamos los elementos desde la posicion 1
-        for (int i = 0; i < elems.length; i++) this.elems[i+1] = elems[i];
+        for (int i = 0; i < elems.length; i++)
+            this.elems[i+1] = elems[i];
         // Restauramos la propiedad de la heap
-        for (int k = length/2; k >= 1; k--)    sink(k);
+        for (int k = length/2; k >= 1; k--)
+            sink(k);
     }
 
     public int size() { return length; }
@@ -73,7 +75,7 @@ public class MaxHeap<E extends Comparable<E>> {
     private void sink(int k) {
         while (2*k <= length) {
             int j = 2*k;
-            if (j < length && elems[j].compareTo(elems[j+1]) > 0) j += 1;
+            if (j < length && elems[j].compareTo(elems[j+1]) < 0) j += 1;
             if (elems[k].compareTo(elems[j]) >= 0) break;
             swap(k, j);
             k = j;

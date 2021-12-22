@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import grupo1.tresenraya.DS.MaxHeap;
 import grupo1.tresenraya.DS.EmptyHeapException;
 
-public class MaxHeapTest {
+public class TestMaxHeap {
     public static MaxHeap<Integer> pq;
 
     @BeforeEach
