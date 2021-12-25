@@ -1,27 +1,25 @@
 package grupo1.tresenraya.DS;
 
 import java.util.Comparator;
+import java.util.Iterator;
 
-public class RoseTree<T extends Comparable<T>> implements Comparable<RoseTree<T>> {
+public class RoseTree<T> implements Iterable<RoseTree<T>> {
     private T content;
-    private MaxHeap<RoseTree<T>> children;
+    private Heap<RoseTree<T>> children;
 
     public T getContent() {
         return content;
     }
 
-    public MaxHeap<RoseTree<T>> getChildren() {
+    public Heap<RoseTree<T>> getChildren() {
         return children;
     }
 
-    public RoseTree(T content) {
+    public RoseTree(T content, Comparator<T> cmp) {
         this.content = content;
-        this.children = new MaxHeap<>();
-    }
-
-    public RoseTree(T content, RoseTree<T>... children) {
-        this.content = content;
-        this.children = new MaxHeap<>(children);
+        this.children = new Heap<RoseTree<T>>((t1, t2) -> {
+            return cmp.compare(t1.getContent(), t2.getContent());
+        });
     }
 
     @SafeVarargs
@@ -31,7 +29,7 @@ public class RoseTree<T extends Comparable<T>> implements Comparable<RoseTree<T>
     }
 
     @Override
-    public int compareTo(RoseTree<T> other) {
-        return content.compareTo(other.content);
+    public Iterator<RoseTree<T>> iterator() {
+        return children.iterator();
     }
 }

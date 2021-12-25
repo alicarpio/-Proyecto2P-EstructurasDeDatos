@@ -1,24 +1,29 @@
 package grupo1.tresenraya.DS;
 
-public class MaxHeap<E extends Comparable<E>> {
+import java.util.Comparator;
+import java.util.Iterator;
+
+public class Heap<E> implements Iterable<E> {
     private E[] elems;
     private int length;
     private int cap;
+    private Comparator<E> cmp;
 
-    public MaxHeap() {
-        this(10);
+    public Heap(Comparator<E> cmp) {
+        this(cmp, 10);
     }
 
-    public MaxHeap(int initialCapacity) {
-        elems = (E[])new Comparable[initialCapacity];
+    public Heap(Comparator<E> cmp, int initialCapacity) {
+        this.cmp = cmp;
+        elems = (E[])new Object[initialCapacity];
         this.cap = initialCapacity;
     }
 
     @SafeVarargs
-    public MaxHeap(E... elems) {
+    public Heap(E... elems) {
         length = elems.length;
         cap = length * 2;
-        this.elems = (E[])new Comparable[cap];
+        this.elems = (E[])new Object[cap];
         // Insertamos los elementos desde la posicion 1
         for (int i = 0; i < elems.length; i++)
             this.elems[i+1] = elems[i];
@@ -63,7 +68,7 @@ public class MaxHeap<E extends Comparable<E>> {
     // repeatedly swap it with the parent until the heap order has been
     // restablished.
     private void swim(int k) {
-        while (k>1 && elems[k/2].compareTo(elems[k]) < 0) {
+        while (k>1 && less(k/2, k)) {
             swap(k/2, k);
             k /= 2;
         }
@@ -75,16 +80,35 @@ public class MaxHeap<E extends Comparable<E>> {
     private void sink(int k) {
         while (2*k <= length) {
             int j = 2*k;
-            if (j < length && elems[j].compareTo(elems[j+1]) < 0) j += 1;
-            if (elems[k].compareTo(elems[j]) >= 0) break;
+            if (j < length && less(j, j+1)) j += 1;
+            if (!less(k, j)) break;
             swap(k, j);
             k = j;
         }
+    }
+
+    private boolean less(int i, int j) {
+        return cmp.compare(elems[i], elems[j]) < 0;
     }
 
     private void swap(int i, int j) {
         E tmp = elems[i];
         elems[i] = elems[j];
         elems[j] = tmp;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<>(){
+            int i = 1;
+            @Override
+            public boolean hasNext() {
+                return i < length;
+            }
+            @Override
+            public E next() {
+                return elems[i++];
+            }
+        };
     }
 }

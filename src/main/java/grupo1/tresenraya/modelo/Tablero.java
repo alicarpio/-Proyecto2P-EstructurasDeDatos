@@ -12,8 +12,29 @@ public class Tablero {
         }
     }
 
+    public Tablero copy() {
+        Tablero newTablero = new Tablero();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tablero[i][j].isMarked()) {
+                    newTablero.get(i, j).setMarked(true);
+                    newTablero.get(i, j).setJugador(tablero[i][j].getJugador());
+                }
+            }
+        }
+        return newTablero;
+    }
+
     public Cell get(int row, int col) {
         return tablero[row][col];
+    }
+
+    public void mark(int row, int col) {
+        tablero[row][col].setMarked(true);
+    }
+
+    public boolean isEmpty(int row, int col) {
+        return !tablero[row][col].isMarked();
     }
 
     public boolean won(Jugador jugador) {
@@ -54,6 +75,14 @@ public class Tablero {
     }
 
     public int getUtilidad(Jugador jugador) {
+        switch (jugador) {
+        case EQUIS: return P(Jugador.EQUIS) - P(Jugador.CIRCULO);
+        case CIRCULO: return P(Jugador.CIRCULO) - P(Jugador.EQUIS);
+        default: throw new RuntimeException("Jugador invalido " + jugador);
+        }
+    }
+
+    public int P(Jugador jugador) {
         int p = 0;
         for (int i = 0; i < 3; i++) {
             if ((tablero[i][0].getJugador() == jugador || !tablero[i][0].isMarked())
