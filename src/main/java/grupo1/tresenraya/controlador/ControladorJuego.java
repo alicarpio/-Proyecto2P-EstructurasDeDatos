@@ -25,12 +25,15 @@ public class ControladorJuego {
     private GameState gameState;
     private Tablero tablero;
     private ModoJuego modoJuego;
+    private Computador computadora;
 
     final private double CELL_WIDTH = 100;
 
     public ControladorJuego(String modoJuego) {
-        if (modoJuego.equals("Computadora"))
+        if (modoJuego.equals("Computadora")) {
             this.modoJuego = ModoJuego.COMPUTADORA;
+            computadora = new Computador(Jugador.CIRCULO);
+        }
         tablero = new Tablero();
         gameState = new GameState(Jugador.EQUIS);
     }
@@ -94,7 +97,7 @@ public class ControladorJuego {
     }
 
     private void turnoComputadora() {
-        gameState.marcarCelda(tablero.get(1, 1));
+        gameState.marcarCelda(computadora.decidirJugada(tablero));
     }
 
     private void checkVictory(Jugador jugador) {

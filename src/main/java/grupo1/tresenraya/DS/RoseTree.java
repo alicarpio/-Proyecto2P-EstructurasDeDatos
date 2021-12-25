@@ -11,6 +11,10 @@ public class RoseTree<T> implements Iterable<RoseTree<T>> {
         return content;
     }
 
+    public void setContent(T content) {
+        this.content = content;
+    }
+
     public Heap<RoseTree<T>> getChildren() {
         return children;
     }

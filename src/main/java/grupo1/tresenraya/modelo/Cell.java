@@ -29,4 +29,9 @@ public class Cell {
     public Position getPosition() {
         return position;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Cell{%d, %d}", position.getX(), position.getY());
+    }
 }
