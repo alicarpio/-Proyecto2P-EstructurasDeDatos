@@ -84,6 +84,7 @@ public class Tablero {
 
     public int P(Jugador jugador) {
         int p = 0;
+        // TODO: cambiar estos por isEmpty()
         for (int i = 0; i < 3; i++) {
             if ((tablero[i][0].getJugador() == jugador || !tablero[i][0].isMarked())
                     && (tablero[i][1].getJugador() == jugador || !tablero[i][1].isMarked())
