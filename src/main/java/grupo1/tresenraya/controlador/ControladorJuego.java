@@ -100,7 +100,7 @@ public class ControladorJuego {
     private void checkVictory(Jugador jugador) {
         if (tablero.won(jugador)) {
             System.out.println("Gano!");
-            Platform.exit();
+            System.exit(0);
         }
     }
 }

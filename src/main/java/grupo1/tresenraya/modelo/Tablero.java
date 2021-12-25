@@ -58,7 +58,7 @@ public class Tablero {
         for (int i = 0; i < 3; i++) {
             if ((tablero[i][0].getJugador() == jugador || !tablero[i][0].isMarked())
                     && (tablero[i][1].getJugador() == jugador || !tablero[i][1].isMarked())
-                    && (tablero[0][2].getJugador() == jugador || !tablero[i][3].isMarked())) {
+                    && (tablero[0][2].getJugador() == jugador || !tablero[i][2].isMarked())) {
                 p++;
             }
             if ((tablero[0][i].getJugador() == jugador || !tablero[0][i].isMarked())
