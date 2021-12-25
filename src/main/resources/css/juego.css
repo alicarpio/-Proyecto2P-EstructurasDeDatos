@@ -1,0 +1,6 @@
+.grid-cell {
+    /*-fx-content-display: top;*/
+    /*-fx-border-insets: 1 0 0 0;*/
+    -fx-border-color: -fx-text-box-border;
+    -fx-border-width: 1;
+}

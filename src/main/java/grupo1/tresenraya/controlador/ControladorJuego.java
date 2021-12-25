@@ -53,6 +53,7 @@ public class ControladorJuego {
             for (int j = 0; j < 3; j++) {
                 Cell cell = tablero.get(i, j);
                 StackPane st = new StackPane();
+                st.getStyleClass().add("grid-cell");
                 if (cell.isMarked()) {
                     anadirMarca(cell, st);
                     checkVictory(cell.getJugador());
@@ -68,7 +69,6 @@ public class ControladorJuego {
                 tableroJuego.add(st, j, i);
             }
         }
-        tableroJuego.setGridLinesVisible(true);
     }
 
     private void anadirMarca(Cell cell, StackPane st) {

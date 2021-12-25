@@ -2,16 +2,20 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml"
-        fx:controller="grupo1.tresenraya.controlador.ControladorInicio">
-    <VBox fx:id="rootPane">
-        <Label>Modo Juego</Label>
+<StackPane xmlns:fx="http://javafx.com/fxml" alignment="center"
+    fx:controller="grupo1.tresenraya.controlador.ControladorInicio"
+    stylesheets="/css/main.css">
+    <VBox fx:id="rootPane" spacing="20" alignment="center">
+        <Text styleClass="big-text">Modo Juego</Text>
         <fx:define>
             <ToggleGroup fx:id="modoJuego"/>
         </fx:define>
-        <RadioButton text="Jugador" toggleGroup="$modoJuego"/>
-        <RadioButton text="Computadora" toggleGroup="$modoJuego"/>
+        <HBox alignment="center" spacing="10">
+            <RadioButton text="Jugador" toggleGroup="$modoJuego" selected="true"/>
+            <RadioButton text="Computadora" toggleGroup="$modoJuego"/>
+        </HBox>
         <Button text="Jugar" onAction="#onJugar" />
     </VBox>
 </StackPane>

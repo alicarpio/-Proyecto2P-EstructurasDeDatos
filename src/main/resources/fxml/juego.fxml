@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" >
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+    stylesheets="/css/juego.css">
     <center>
-        <GridPane fx:id="tableroJuego"></GridPane>
+        <GridPane fx:id="tableroJuego" alignment="center"></GridPane>
     </center>
 </BorderPane>

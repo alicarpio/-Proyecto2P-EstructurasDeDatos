@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.fxml.*;
+import jfxtras.styles.jmetro.*;
 
 public class ControladorInicio {
     @FXML
@@ -26,7 +27,13 @@ public class ControladorInicio {
         ControladorJuego controladorJuego = new ControladorJuego(modoJuego);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/juego.fxml"));
         fxmlLoader.setController(controladorJuego);
-        Scene scene = new Scene((Parent)fxmlLoader.load(), 640, 480);
+
+        Parent root = (Parent)fxmlLoader.load();
+        root.getStyleClass().add(JMetroStyleClass.BACKGROUND);
+        Scene scene = new Scene(root, 640, 480);
+        JMetro jMetro = new JMetro(Style.DARK);
+        jMetro.setScene(scene);
+
         Stage stage = (Stage)this.rootPane.getScene().getWindow();
         stage.setScene(scene);
     }
