@@ -27,7 +27,7 @@ public class ControladorJuego {
     private ModoJuego modoJuego;
     private Computador computadora;
 
-    final private double CELL_WIDTH = 100;
+    final private double CELL_WIDTH = 360/3;
 
     public ControladorJuego(String modoJuego) {
         if (modoJuego.equals("Computadora")) {

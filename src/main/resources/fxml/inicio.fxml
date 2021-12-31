@@ -28,16 +28,16 @@
                 <Font size="24.0" />
             </font>
         </Label>
+        <fx:define>
+            <ToggleGroup fx:id="modoJuego"/>
+        </fx:define>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
-            <fx:define>
-                <ToggleGroup fx:id="modoJuego"/>
-            </fx:define>
-            <RadioButton mnemonicParsing="false" text="Jugador" textFill="WHITE">
+            <RadioButton text="Jugador" textFill="WHITE" toggleGroup="$modoJuego">
                 <font>
                     <Font size="18.0" />
                 </font>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Computadora" textFill="WHITE" toggleGroup="$modoJuego" selected="true">
+            <RadioButton text="Computadora" textFill="WHITE" toggleGroup="$modoJuego"  selected="true">
                 <font>
                     <Font size="18.0" />
                 </font>
