@@ -3,9 +3,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-    stylesheets="/css/juego.css">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane maxHeight="650.0" maxWidth="1000.0" minHeight="650.0" minWidth="1000.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1B1B1B;" xmlns:fx="http://javafx.com/fxml" >
     <center>
-        <GridPane fx:id="tableroJuego" alignment="center"></GridPane>
+        <StackPane>
+            <children>
+                <ImageView fitHeight="360.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/base.png" />
+                    </image>
+                </ImageView>
+                <GridPane fx:id="tableroJuego" alignment="center" maxHeight="360.0" maxWidth="360.0" minHeight="360.0" minWidth="360.0" prefHeight="360.0" prefWidth="360.0" />
+            </children>
+        </StackPane>
     </center>
+    <left>
+        <VBox fx:id="vboxLeft" alignment="CENTER" maxHeight="650.0" maxWidth="150.0" minHeight="530.0" minWidth="150.0" prefHeight="530.0" prefWidth="150.0" spacing="10.0" BorderPane.alignment="CENTER" />
+    </left>
+    <right>
+        <VBox fx:id="vboxRight" alignment="CENTER" maxHeight="650.0" maxWidth="150.0" minHeight="530.0" minWidth="150.0" prefHeight="530.0" prefWidth="150.0" spacing="10.0" BorderPane.alignment="CENTER" />
+    </right>
+    <bottom>
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button maxHeight="40.0" maxWidth="150.0" minHeight="40.0" minWidth="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" style="-fx-background-radius: 10; -fx-background-color: #40B4C2;" text="AYUDA">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
 </BorderPane>

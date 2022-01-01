@@ -28,13 +28,10 @@ public class ControladorInicio {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/juego.fxml"));
         fxmlLoader.setController(controladorJuego);
 
-        Parent root = (Parent)fxmlLoader.load();
-        root.getStyleClass().add(JMetroStyleClass.BACKGROUND);
-        Scene scene = new Scene(root, 640, 480);
-        JMetro jMetro = new JMetro(Style.DARK);
-        jMetro.setScene(scene);
-
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root, 1000, 650);
         Stage stage = (Stage)this.rootPane.getScene().getWindow();
+        stage.setResizable(false);
         stage.setScene(scene);
     }
 }

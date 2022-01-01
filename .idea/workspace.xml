@@ -4,7 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="876accd5-f48b-4e35-b64b-6be2e306bc4f" name="Changes" comment="" />
+    <list default="true" id="876accd5-f48b-4e35-b64b-6be2e306bc4f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/base.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/o-blue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/o-green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/o-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/o-white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/tic-tac-toe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/x-blue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/x-purple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/x-red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/x-red2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/xo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupo1/tresenraya/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupo1/tresenraya/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupo1/tresenraya/controlador/ControladorInicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupo1/tresenraya/controlador/ControladorInicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupo1/tresenraya/controlador/ControladorJuego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupo1/tresenraya/controlador/ControladorJuego.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/inicio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/inicio.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/juego.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/juego.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

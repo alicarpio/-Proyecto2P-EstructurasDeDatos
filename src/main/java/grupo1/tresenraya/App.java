@@ -9,17 +9,27 @@ import javafx.scene.*;
 import javafx.fxml.*;
 import jfxtras.styles.jmetro.*;
 
+import java.io.IOException;
+
 public class App extends Application {
+
+    private static Scene scene;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/inicio.fxml"));
-        Parent root = (Parent)fxmlLoader.load();
-        root.getStyleClass().add(JMetroStyleClass.BACKGROUND);
-        Scene scene = new Scene(root, 640, 480);
-        JMetro jMetro = new JMetro(Style.DARK);
-        jMetro.setScene(scene);
+        App.setScene("inicio");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    public static void setScene(String fxml) throws IOException {
+        scene = new Scene(loadFXML(fxml), 1000, 650);
+    }
+
+    public static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/"+fxml+".fxml"));
+        return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
