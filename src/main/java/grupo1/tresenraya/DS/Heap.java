@@ -34,6 +34,11 @@ public class Heap<E> implements Iterable<E> {
 
     public int size() { return length; }
 
+    public E peek() {
+        if (length < 1) return null;
+        return elems[1];
+    }
+
     public E pop() {
         if (length < 1)
             throw new EmptyHeapException();

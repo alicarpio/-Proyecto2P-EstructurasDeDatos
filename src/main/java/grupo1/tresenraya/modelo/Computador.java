@@ -43,6 +43,9 @@ public class Computador {
             }
         }
 
+        // TODO: this is not right, after one play there may be many boards in
+        // which the oponent wins, we need to choose the one with the best
+        // utility for us among those
         for (RoseTree<Tablero> t1 : gameTree.getChildren()) {
             for (RoseTree<Tablero> t2 : t1.getChildren()) {
                 if (t2.getContent().won(getOponente(jugador)))
@@ -55,15 +58,17 @@ public class Computador {
         Heap<Tablero> maxHeap = new Heap<>((t1, t2) ->
                 t2.getUtilidad(jugador) - t1.getUtilidad(jugador));
         gameTree.getChildren().forEach(t -> maxHeap.insert(t.getContent()));
+        if (maxHeap.peek() == null) // Esto ocurre cuando el tablero esta lleno
+            return null;
         return seleccionarCelda(actual, maxHeap.pop(), jugador);
     }
 
     public static RoseTree<Tablero> generarTableros(Tablero actual, Jugador jugador) {
-        Comparator<Tablero> cmp = (t1, t2) -> t1.getUtilidad(jugador) - t2.getUtilidad(jugador);
+        Comparator<Tablero> cmp = (t1, t2) -> t2.getUtilidad(jugador) - t1.getUtilidad(jugador);
 
         RoseTree<Tablero> tree = new RoseTree<>(actual, cmp);
-        for (Tablero t : actual.sgteGeneracion(jugador)) {
-            tree.addChildren(new RoseTree<>(t, cmp));
+        for (Tablero tbl : actual.sgteGeneracion(jugador)) {
+            tree.addChildren(new RoseTree<>(tbl, cmp));
         }
 
         tree.getChildren()
