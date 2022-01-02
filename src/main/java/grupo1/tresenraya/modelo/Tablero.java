@@ -48,11 +48,15 @@ public class Tablero {
     }
 
     public void mark(int row, int col) {
-        tablero[row][col].setMarked(true);
+        get(row, col).setMarked(true);
     }
 
     public boolean isEmpty(int row, int col) {
-        return !tablero[row][col].isMarked();
+        return !get(row, col).isMarked();
+    }
+
+    public boolean jugadorMatches(int row, int col, Jugador jugador) {
+        return get(row, col).getJugador() == jugador;
     }
 
     public boolean won(Jugador jugador) {
@@ -60,36 +64,20 @@ public class Tablero {
     }
 
     public boolean checkCols(Jugador jugador) {
-        return (tablero[0][0].getJugador() == jugador
-                && tablero[0][1].getJugador() == jugador
-                && tablero[0][2].getJugador() == jugador) ||
-            (tablero[1][0].getJugador() == jugador
-             && tablero[1][1].getJugador() == jugador
-             && tablero[1][2].getJugador() == jugador) ||
-            (tablero[2][0].getJugador() == jugador
-             && tablero[2][1].getJugador() == jugador
-             && tablero[2][2].getJugador() == jugador);
+        return (jugadorMatches(0, 0, jugador) && jugadorMatches(0, 1, jugador) && jugadorMatches(0, 2, jugador))
+            || (jugadorMatches(1, 0, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(1, 2, jugador))
+            || (jugadorMatches(2, 0, jugador) && jugadorMatches(2, 1, jugador) && jugadorMatches(2, 2, jugador));
     }
 
     public boolean checkRows(Jugador jugador) {
-        return (tablero[0][0].getJugador() == jugador
-                && tablero[1][0].getJugador() == jugador
-                && tablero[2][0].getJugador() == jugador) ||
-            (tablero[0][1].getJugador() == jugador
-             && tablero[1][1].getJugador() == jugador
-             && tablero[2][1].getJugador() == jugador) ||
-            (tablero[0][2].getJugador() == jugador
-             && tablero[1][2].getJugador() == jugador
-             && tablero[2][2].getJugador() == jugador);
+        return (jugadorMatches(0, 0, jugador) && jugadorMatches(1, 0, jugador) && jugadorMatches(2, 0, jugador))
+            || (jugadorMatches(0, 1, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 1, jugador))
+            || (jugadorMatches(0, 2, jugador) && jugadorMatches(1, 2, jugador) && jugadorMatches(2, 2, jugador));
     }
 
     public boolean checkDiagonals(Jugador jugador) {
-        return (tablero[0][0].getJugador() == jugador
-                && tablero[1][1].getJugador() == jugador
-                && tablero[2][2].getJugador() == jugador) ||
-            (tablero[0][2].getJugador() == jugador
-             && tablero[1][1].getJugador() == jugador
-             && tablero[2][0].getJugador() == jugador);
+        return (jugadorMatches(0, 0, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 2, jugador))
+            || (jugadorMatches(0, 2, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 0, jugador));
     }
 
     public int getUtilidad(Jugador jugador) {
@@ -102,27 +90,26 @@ public class Tablero {
 
     public int P(Jugador jugador) {
         int p = 0;
-        // TODO: cambiar estos por isEmpty()
         for (int i = 0; i < 3; i++) {
-            if ((tablero[i][0].getJugador() == jugador || !tablero[i][0].isMarked())
-                    && (tablero[i][1].getJugador() == jugador || !tablero[i][1].isMarked())
-                    && (tablero[0][2].getJugador() == jugador || !tablero[i][2].isMarked())) {
+            if ((jugadorMatches(i, 0, jugador) || isEmpty(i, 0))
+                    && (jugadorMatches(i, 1, jugador) || isEmpty(i, 1))
+                    && (jugadorMatches(0, 2, jugador) || isEmpty(i, 2))) {
                 p++;
             }
-            if ((tablero[0][i].getJugador() == jugador || !tablero[0][i].isMarked())
-                    && (tablero[1][i].getJugador() == jugador || !tablero[1][i].isMarked())
-                    && (tablero[2][i].getJugador() == jugador || !tablero[2][i].isMarked())) {
+            if ((jugadorMatches(0, i, jugador) || isEmpty(0, i))
+                    && (jugadorMatches(1, i, jugador) || isEmpty(1, i))
+                    && (jugadorMatches(2, i, jugador) || isEmpty(2, i))) {
                 p++;
             }
         }
-        if ((tablero[0][0].getJugador() == jugador || !tablero[0][0].isMarked())
-                && (tablero[1][1].getJugador() == jugador || !tablero[1][1].isMarked())
-                && (tablero[2][2].getJugador() == jugador || !tablero[2][2].isMarked())) {
+        if ((jugadorMatches(0, 0, jugador) || isEmpty(0, 0))
+                && (jugadorMatches(1, 1, jugador) || isEmpty(1, 1))
+                && (jugadorMatches(2, 2, jugador) || isEmpty(2, 2))) {
             p++;
         }
-        if ((tablero[0][2].getJugador() == jugador || !tablero[0][2].isMarked())
-                && (tablero[1][1].getJugador() == jugador || !tablero[1][1].isMarked())
-                && (tablero[2][0].getJugador() == jugador || !tablero[2][0].isMarked())) {
+        if ((jugadorMatches(0, 2, jugador) || isEmpty(0, 2))
+                && (jugadorMatches(1, 1, jugador) || isEmpty(1, 1))
+                && (jugadorMatches(2, 0, jugador) || isEmpty(2, 0))) {
             p++;
         }
 
