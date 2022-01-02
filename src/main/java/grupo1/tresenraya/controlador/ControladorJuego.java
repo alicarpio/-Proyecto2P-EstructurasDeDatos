@@ -18,7 +18,6 @@ public class ControladorJuego {
         JUGADOR, COMPUTADORA
     }
 
-
     @FXML
     private GridPane tableroJuego;
 
@@ -47,6 +46,7 @@ public class ControladorJuego {
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
+
         actualizarTablero();
     }
 
@@ -97,7 +97,7 @@ public class ControladorJuego {
     }
 
     private void turnoComputadora() {
-        gameState.marcarCelda(computadora.decidirJugada(tablero));
+        gameState.marcarCelda(computadora.decidirJugada(tablero, computadora.getJugador()));
     }
 
     private void checkVictory(Jugador jugador) {

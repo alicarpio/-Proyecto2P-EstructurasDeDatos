@@ -14,11 +14,15 @@ public class Computador {
         this.jugador = jugador;
     }
 
+    public Jugador getJugador() {
+        return jugador;
+    }
+
     public static Jugador getOponente(Jugador jugador) {
         return jugador == Jugador.EQUIS ? Jugador.CIRCULO : Jugador.EQUIS;
     }
 
-    public Cell seleccionarCelda(Tablero actual, Tablero nuevo, Jugador jugador) {
+    public static Cell seleccionarCelda(Tablero actual, Tablero nuevo, Jugador jugador) {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++) {
                 if (nuevo.get(i, j).isMarked() 
@@ -30,7 +34,7 @@ public class Computador {
         return null;
     }
 
-    public Cell decidirJugada(Tablero actual) {
+    public static Cell decidirJugada(Tablero actual, Jugador jugador) {
         RoseTree<Tablero> gameTree = generarTableros(actual, jugador);
 
         for (RoseTree<Tablero> t1 : gameTree.getChildren()) {
