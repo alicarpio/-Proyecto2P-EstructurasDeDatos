@@ -1,5 +1,8 @@
 package grupo1.tresenraya.modelo;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Tablero {
     private Cell[][] tablero;
 
@@ -10,6 +13,21 @@ public class Tablero {
                 tablero[i][j] = new Cell(new Position(i, j));
             }
         }
+    }
+
+    public List<Tablero> sgteGeneracion(Jugador jugador) {
+        List<Tablero> tableros = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                Tablero tbl = copy();
+                if (tbl.isEmpty(i, j)) {
+                    tbl.get(i, j).setJugador(jugador);
+                    tbl.mark(i, j);
+                    tableros.add(tbl);
+                }
+            }
+        }
+        return tableros;
     }
 
     public Tablero copy() {
@@ -107,6 +125,26 @@ public class Tablero {
                 && (tablero[2][0].getJugador() == jugador || !tablero[2][0].isMarked())) {
             p++;
         }
+
         return p;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            sb.append("-------\n");
+            for (int j = 0; j < 3; j++) {
+                if (get(i, j).isMarked()) {
+                    if (get(i, j).getJugador() == Jugador.EQUIS) sb.append("|X");
+                    else sb.append("|O");
+                } else {
+                    sb.append("| ");
+                }
+            }
+            sb.append("|\n");
+        }
+        sb.append("-------");
+        return sb.toString();
     }
 }
