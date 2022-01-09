@@ -60,6 +60,7 @@ public class ControladorJuego {
                 if (cell.isMarked()) {
                     anadirMarca(cell, st);
                     checkVictory(cell.getJugador());
+                    empate();
                 }
                 st.setOnMouseClicked(e -> {
                     if (gameState.marcarCelda(cell))
@@ -103,6 +104,13 @@ public class ControladorJuego {
     private void checkVictory(Jugador jugador) {
         if (tablero.won(jugador)) {
             System.out.println("Gano!");
+            System.exit(0);
+        }
+    }
+
+    private void empate() {
+        if(tablero.tableroLleno()) {
+            System.out.println("Empate!");
             System.exit(0);
         }
     }

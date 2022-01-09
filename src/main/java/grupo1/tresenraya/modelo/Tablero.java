@@ -102,6 +102,17 @@ public class Tablero {
 //    }
 
 
+    public boolean tableroLleno() {
+        boolean result = true;
+        for(Cell[] arr : tablero) {
+            for(Cell cell : arr) {
+                if (!cell.isMarked()) {
+                    result = false;
+                }
+            }
+        }
+        return result;
+    }
     public int P(Jugador jugador) {
         int p = 0;
         for (int i = 0; i < 3; i++) {
@@ -145,8 +156,8 @@ public class Tablero {
             }
             sb.append("|\n");
         }
-        sb.append("-------");
-        sb.append(this.getUtilidad(Jugador.CIRCULO));
+        sb.append("-------\n");
+        sb.append("Utilidad Circulo: "+this.getUtilidad(Jugador.CIRCULO));
         return sb.toString();
     }
 }
