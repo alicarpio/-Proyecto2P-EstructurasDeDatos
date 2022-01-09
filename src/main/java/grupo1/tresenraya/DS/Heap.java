@@ -116,4 +116,16 @@ public class Heap<E> implements Iterable<E> {
             }
         };
     }
+
+    public void print(){
+        Heap<E> tmp = new Heap<E>(cmp);
+        while (this.size() > 0) {
+            E el = this.pop();
+            System.out.println(el.toString());
+            tmp.insert(el);
+        }
+        while(tmp.size() > 0) {
+            this.insert(tmp.pop());
+        }
+    }
 }

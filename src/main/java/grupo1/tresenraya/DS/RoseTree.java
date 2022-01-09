@@ -21,9 +21,7 @@ public class RoseTree<T> implements Iterable<RoseTree<T>> {
 
     public RoseTree(T content, Comparator<T> cmp) {
         this.content = content;
-        this.children = new Heap<RoseTree<T>>((t1, t2) -> {
-            return cmp.compare(t1.getContent(), t2.getContent());
-        });
+        this.children = new Heap<RoseTree<T>>((t1, t2) -> cmp.compare(t1.getContent(), t2.getContent()));
     }
 
     @SafeVarargs
@@ -35,5 +33,10 @@ public class RoseTree<T> implements Iterable<RoseTree<T>> {
     @Override
     public Iterator<RoseTree<T>> iterator() {
         return children.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return  this.getContent().toString();
     }
 }

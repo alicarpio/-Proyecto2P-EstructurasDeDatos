@@ -97,7 +97,7 @@ public class ControladorJuego {
     }
 
     private void turnoComputadora() {
-        gameState.marcarCelda(computadora.decidirJugada(tablero, computadora.getJugador()));
+        gameState.marcarCelda(Computador.decidirJugada(tablero, computadora.getJugador()));
     }
 
     private void checkVictory(Jugador jugador) {

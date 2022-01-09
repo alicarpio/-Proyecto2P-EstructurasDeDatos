@@ -1,6 +1,8 @@
 package grupo1.tresenraya.modelo;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import grupo1.tresenraya.DS.RoseTree;
 import grupo1.tresenraya.DS.Heap;
@@ -28,49 +30,80 @@ public class Computador {
         return null;
     }
 
+    public static Cell seleccionarCeldaOP(Tablero actual, Tablero nuevo, Jugador jugador) {
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++) {
+                if (nuevo.get(i, j).isMarked() && !actual.get(i, j).isMarked()
+                        && !nuevo.get(i, j).getJugador().equals(jugador)) {
+                    return actual.get(i, j);
+                }
+            }
+        return null;
+    }
+
     public static Cell decidirJugada(Tablero actual, Jugador jugador) {
-        RoseTree<Tablero> gameTree = generarTableros(actual, jugador);
 
-        for (RoseTree<Tablero> t1 : gameTree.getChildren()) {
-            if (t1.getContent().won(jugador)) {
-                return seleccionarCelda(actual, t1.getContent(), jugador);
-            }
+        RoseTree<Tablero> gameTree = Computador.generarTableros(actual, jugador);
+
+        Comparator<RoseTree<Tablero>> cmp = (rt1, rt2) -> {
+            int  sg1Best = rt1.getContent().getUtilidad(jugador);
+            int  sg2Best = rt2.getContent().getUtilidad(jugador);
+            return sg1Best - sg2Best;};
+
+        Heap<RoseTree<Tablero>> bestOps1 = new Heap<>(cmp);
+        Heap<RoseTree<Tablero>> bestOps2 = new Heap<>(cmp.reversed());
+
+        for (RoseTree<Tablero> rt : gameTree.getChildren()) {
+            bestOps1.insert(rt.getChildren().peek());
+            bestOps2.insert(rt.getChildren().peek());
         }
 
-        Heap<Tablero> opWins = new Heap<>(Comparator.comparingInt(t -> t.getUtilidad(jugador)));
+        RoseTree<Tablero> jugada1 = bestOps1.peek();
+        RoseTree<Tablero>  jugada2 = bestOps2.peek();
 
-        for (RoseTree<Tablero> t1 : gameTree.getChildren()) {
-            for (RoseTree<Tablero> t2 : t1.getChildren()) {
-                if (t2.getContent().won(jugador.getOponente()))
-                    opWins.insert(t2.getContent());
-            }
-            t1.setContent(t1.getChildren().pop().getContent());
-        }
+        Tablero tablero1 = jugada1.getContent();
+        Tablero tablero2 = jugada2.getContent();
+        bestOps1.print();
+        System.out.println("\n\n");
+        bestOps2.print();
+        System.out.println("\n\n");
 
-        if (opWins.size() > 0)
-            return seleccionarCelda(actual, opWins.pop(), jugador.getOponente());
+        System.out.println(tablero1.toString()+"Jugada 1 Seleccionada");
+        System.out.println("**************"+tablero1.getUtilidad(jugador));
 
-        // Now calculate the maximum utility for the computer
-        Heap<Tablero> maxHeap = new Heap<>(Comparator.comparingInt(t -> t.getUtilidad(jugador)));
-        gameTree.getChildren().forEach(t -> maxHeap.insert(t.getContent()));
-        if (maxHeap.peek() == null) // Esto ocurre cuando el tablero esta lleno
-            return null;
-        return seleccionarCelda(actual, maxHeap.pop(), jugador);
+        System.out.println(tablero2.toString()+"Jugada 2 Seleccionada");
+        System.out.println("**************"+tablero2.getUtilidad(jugador));
+
+        System.out.println("\n\n\n\n");
+
+        Cell cell = tablero2.getUtilidad(jugador) == -10 ? seleccionarCelda(actual, tablero2, jugador)
+                        : tablero2.getUtilidad(jugador) == -9 ? seleccionarCeldaOP(actual, tablero2, jugador)
+                        : seleccionarCelda(actual, tablero1, jugador);
+
+        System.out.println(cell);
+        return cell;
+
     }
 
     public static RoseTree<Tablero> generarTableros(Tablero actual, Jugador jugador) {
-        Comparator<Tablero> cmp = (t1, t2) -> t2.getUtilidad(jugador) - t1.getUtilidad(jugador);
-        RoseTree<Tablero> tree = new RoseTree<>(actual, cmp);
-        for (Tablero tbl : actual.sgteGeneracion(jugador)) {
-            tree.addChildren(new RoseTree<>(tbl, cmp));
+
+        Jugador oponente = jugador.getOponente();
+
+        Comparator<Tablero> cmpP = (t1, t2) -> t2.getUtilidad(jugador) - t1.getUtilidad(jugador);
+
+        RoseTree<Tablero> tree = new RoseTree<>(actual, cmpP);
+
+        List<Tablero> primeraGeneracion = actual.sgteGeneracion(jugador);
+
+        for(Tablero t1 : primeraGeneracion) {
+
+            RoseTree<Tablero> treePrimeraG = new RoseTree<>(t1, cmpP);
+            List<Tablero> segundaGeneracion = t1.sgteGeneracion(oponente);
+            for (Tablero t2 : segundaGeneracion) {
+                treePrimeraG.addChildren(new RoseTree<>(t2, cmpP));
+            }
+            tree.addChildren(treePrimeraG);
         }
-
-        tree.getChildren()
-            .forEach(t1 -> t1.addChildren(t1.getContent().sgteGeneracion(jugador.getOponente())
-                        .stream()
-                        .map(tbl -> new RoseTree<>(tbl, cmp))
-                        .toArray(RoseTree[]::new)));
-
         return tree;
     }
 }

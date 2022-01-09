@@ -81,19 +81,33 @@ public class Tablero {
     }
 
     public int getUtilidad(Jugador jugador) {
-        switch (jugador) {
-        case EQUIS: return P(Jugador.EQUIS) - P(Jugador.CIRCULO);
-        case CIRCULO: return P(Jugador.CIRCULO) - P(Jugador.EQUIS);
-        default: throw new RuntimeException("Jugador invalido " + jugador);
+        Jugador oponente = jugador.getOponente();
+        if(won(jugador)) {
+            return -10;
+        }
+        else if (won(oponente)) {
+            return -9;
+        }
+        else {
+            return P(jugador) - P(oponente);
         }
     }
+
+//    public int getUtilidad(Jugador jugador) {
+//        switch (jugador) {
+//        case EQUIS: return P(Jugador.EQUIS) - P(Jugador.CIRCULO);
+//        case CIRCULO: return P(Jugador.CIRCULO) - P(Jugador.EQUIS);
+//        default: throw new RuntimeException("Jugador invalido " + jugador);
+//        }
+//    }
+
 
     public int P(Jugador jugador) {
         int p = 0;
         for (int i = 0; i < 3; i++) {
             if ((jugadorMatches(i, 0, jugador) || isEmpty(i, 0))
                     && (jugadorMatches(i, 1, jugador) || isEmpty(i, 1))
-                    && (jugadorMatches(0, 2, jugador) || isEmpty(i, 2))) {
+                    && (jugadorMatches(i, 2, jugador) || isEmpty(i, 2))) {
                 p++;
             }
             if ((jugadorMatches(0, i, jugador) || isEmpty(0, i))
@@ -132,6 +146,7 @@ public class Tablero {
             sb.append("|\n");
         }
         sb.append("-------");
+        sb.append(this.getUtilidad(Jugador.CIRCULO));
         return sb.toString();
     }
 }
