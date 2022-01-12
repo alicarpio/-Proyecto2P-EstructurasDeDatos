@@ -20,9 +20,10 @@ public class GameState {
     }
 
     public void changeJugador() {
-        if (jugador == Jugador.EQUIS)
-            jugador = Jugador.CIRCULO;
-        else
-            jugador = Jugador.EQUIS;
+        jugador = jugador.getOponente();
+    }
+
+    public Jugador getJugador() {
+        return jugador;
     }
 }
