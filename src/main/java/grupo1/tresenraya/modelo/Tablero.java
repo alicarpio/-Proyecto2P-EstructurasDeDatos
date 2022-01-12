@@ -65,47 +65,36 @@ public class Tablero {
 
     public boolean checkCols(Jugador jugador) {
         return (jugadorMatches(0, 0, jugador) && jugadorMatches(0, 1, jugador) && jugadorMatches(0, 2, jugador))
-            || (jugadorMatches(1, 0, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(1, 2, jugador))
-            || (jugadorMatches(2, 0, jugador) && jugadorMatches(2, 1, jugador) && jugadorMatches(2, 2, jugador));
+                || (jugadorMatches(1, 0, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(1, 2, jugador))
+                || (jugadorMatches(2, 0, jugador) && jugadorMatches(2, 1, jugador) && jugadorMatches(2, 2, jugador));
     }
 
     public boolean checkRows(Jugador jugador) {
         return (jugadorMatches(0, 0, jugador) && jugadorMatches(1, 0, jugador) && jugadorMatches(2, 0, jugador))
-            || (jugadorMatches(0, 1, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 1, jugador))
-            || (jugadorMatches(0, 2, jugador) && jugadorMatches(1, 2, jugador) && jugadorMatches(2, 2, jugador));
+                || (jugadorMatches(0, 1, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 1, jugador))
+                || (jugadorMatches(0, 2, jugador) && jugadorMatches(1, 2, jugador) && jugadorMatches(2, 2, jugador));
     }
 
     public boolean checkDiagonals(Jugador jugador) {
         return (jugadorMatches(0, 0, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 2, jugador))
-            || (jugadorMatches(0, 2, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 0, jugador));
+                || (jugadorMatches(0, 2, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(2, 0, jugador));
     }
 
     public int getUtilidad(Jugador jugador) {
         Jugador oponente = jugador.getOponente();
-        if(won(jugador)) {
+        if (won(jugador)) {
             return -10;
-        }
-        else if (won(oponente)) {
+        } else if (won(oponente)) {
             return -9;
-        }
-        else {
+        } else {
             return P(jugador) - P(oponente);
         }
     }
 
-//    public int getUtilidad(Jugador jugador) {
-//        switch (jugador) {
-//        case EQUIS: return P(Jugador.EQUIS) - P(Jugador.CIRCULO);
-//        case CIRCULO: return P(Jugador.CIRCULO) - P(Jugador.EQUIS);
-//        default: throw new RuntimeException("Jugador invalido " + jugador);
-//        }
-//    }
-
-
     public boolean tableroLleno() {
         boolean result = true;
-        for(Cell[] arr : tablero) {
-            for(Cell cell : arr) {
+        for (Cell[] arr : tablero) {
+            for (Cell cell : arr) {
                 if (!cell.isMarked()) {
                     result = false;
                 }
@@ -113,6 +102,7 @@ public class Tablero {
         }
         return result;
     }
+
     public int P(Jugador jugador) {
         int p = 0;
         for (int i = 0; i < 3; i++) {
@@ -157,7 +147,7 @@ public class Tablero {
             sb.append("|\n");
         }
         sb.append("-------\n");
-        sb.append("Utilidad Circulo: "+this.getUtilidad(Jugador.CIRCULO));
+        sb.append("Utilidad Circulo: " + this.getUtilidad(Jugador.CIRCULO));
         return sb.toString();
     }
 }
