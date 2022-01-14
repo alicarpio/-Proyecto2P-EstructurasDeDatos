@@ -32,17 +32,23 @@ public class ControladorJuego {
     private GameState gameState;
     private Tablero tablero;
     private ModoJuego modoJuego;
+    private ModoJuego modoJuego1;
     private Computador computadora;
+    private Computador computadora1;
 
     final private double CELL_WIDTH = 360 / 3;
 
-    public ControladorJuego(String modoJuego) {
-        if (modoJuego.equals("Computadora")) {
-            this.modoJuego = ModoJuego.COMPUTADORA;
-            computadora = new Computador(Jugador.CIRCULO);
-        }
+    public ControladorJuego(String modoJuego, String modoJuego1, String pieza) {
         tablero = new Tablero();
-        gameState = new GameState(Jugador.EQUIS);
+        if (modoJuego.equals("Computer")) {
+            this.modoJuego = ModoJuego.COMPUTADORA;
+            computadora = new Computador(pieza.equals("X") ? Jugador.EQUIS : Jugador.CIRCULO);
+        }
+        if (modoJuego1.equals("Computer")) {
+            this.modoJuego1 = ModoJuego.COMPUTADORA;
+            computadora1 = new Computador(pieza.equals("X") ? Jugador.CIRCULO : Jugador.EQUIS);
+        }
+        gameState = new GameState(pieza.equals("X") ? Jugador.EQUIS : Jugador.CIRCULO);
     }
 
     @FXML
@@ -130,11 +136,11 @@ public class ControladorJuego {
     }
 
     private void anadirEquis( StackPane st) {
-        st.getChildren().add(new ImageView(new Image("images/x-red.png", CELL_WIDTH / 2.3, CELL_WIDTH / 2.3, true, true)));
+        st.getChildren().add(new ImageView(new Image("images/x-red.png", CELL_WIDTH / 2, CELL_WIDTH / 2, true, true)));
     }
 
     private void anadirCirculo(StackPane st) {
-        st.getChildren().add(new ImageView(new Image("images/o-blue.png", CELL_WIDTH / 2.3, CELL_WIDTH / 2.3, true, true)));
+        st.getChildren().add(new ImageView(new Image("images/o-blue.png", CELL_WIDTH / 2, CELL_WIDTH / 2, true, true)));
     }
 
     private void checkVictory(Cell cell) {
