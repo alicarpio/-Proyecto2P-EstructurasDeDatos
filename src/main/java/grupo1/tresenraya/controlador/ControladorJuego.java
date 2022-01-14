@@ -6,6 +6,7 @@ import javafx.event.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -85,13 +86,14 @@ public class ControladorJuego {
     private void hacerJugada(Cell  cell) {
         if (gameState.marcarCelda(cell)) {
             actualizarTablero();
-            checkVictory();
+            checkVictory(cell);
             empate();
         }
         if (modoJuego == ModoJuego.COMPUTADORA && !tablero.tableroLleno() && !tablero.won(cell.getJugador())) {
-            turnoComputadora();
+            Cell cCell = Computador.decidirJugada(tablero, computadora.getJugador());
+            gameState.marcarCelda(cCell);
             actualizarTablero();
-            checkVictory();
+            checkVictory(cCell);
             empate();
         }
     }
@@ -117,54 +119,49 @@ public class ControladorJuego {
     private void anadirMarca(Cell cell, StackPane st) {
         switch (cell.getJugador()) {
             case EQUIS:
-                anadirEquis(cell, st);
+                anadirEquis(st);
                 break;
             case CIRCULO:
-                anadirCirculo(cell, st);
+                anadirCirculo(st);
                 break;
             default:
                 throw new RuntimeException("Invalid Jugador " + cell.getJugador());
         }
     }
 
-    private void anadirEquis(Cell cell, StackPane st) {
-        Rectangle rect1 = new Rectangle(CELL_WIDTH / 8, CELL_WIDTH / 1.2, Color.CADETBLUE);
-        Rectangle rect2 = new Rectangle(CELL_WIDTH / 8, CELL_WIDTH / 1.2, Color.CADETBLUE);
-        rect1.setRotate(45);
-        rect2.setRotate(-45);
-        st.getChildren().addAll(rect1, rect2);
+    private void anadirEquis( StackPane st) {
+        st.getChildren().add(new ImageView(new Image("images/x-red.png", CELL_WIDTH / 2.3, CELL_WIDTH / 2.3, true, true)));
     }
 
-    private void anadirCirculo(Cell cell, StackPane st) {
-        Circle circle1 = new Circle(CELL_WIDTH / 2.5, Color.CORAL);
-        Circle circle2 = new Circle(CELL_WIDTH / 3.5, Color.WHITE);
-        st.getChildren().addAll(circle1, circle2);
-    }
-    private void turnoComputadora() {
-        gameState.marcarCelda(Computador.decidirJugada(tablero, computadora.getJugador()));
+    private void anadirCirculo(StackPane st) {
+        st.getChildren().add(new ImageView(new Image("images/o-blue.png", CELL_WIDTH / 2.3, CELL_WIDTH / 2.3, true, true)));
     }
 
-    private void checkVictory() {
-        if (tablero.won(gameState.getJugador())) {
-            System.out.println("Gano!");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "GANA "+gameState.getJugador());
-            alert.showAndWait();
-        }
-        else if (tablero.won(gameState.getJugador().getOponente())) {
-            System.out.println("Gano!");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "GANA "+gameState.getJugador().getOponente());
-            alert.showAndWait();
-            cambiarAVistaInicio();
+    private void checkVictory(Cell cell) {
+        if (tablero.won(cell.getJugador())) {
+            String name = cell.getJugador().toString();
+            System.out.println(name);
+            crearAlerta("GANADOR!!", name.equals("EQUIS") ? "x-red"  : "o-blue");
         }
     }
 
     private void empate() {
         if (tablero.tableroLleno()) {
             System.out.println("Empate!");
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "EMPATE!! ");
-            alert.showAndWait();
-            cambiarAVistaInicio();
+            crearAlerta("EMPATE!!", "xo");
         }
+    }
+
+    private void crearAlerta(String msg, String img) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Image imagen = new Image("images/"+img+".png", 200.0, 200.0, true, true);
+        alert.setGraphic(new ImageView(imagen));
+        alert.setHeaderText(msg);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("images/xo.png"));
+        stage.setTitle("RESULTADO");
+        alert.showAndWait();
+        cambiarAVistaInicio();
     }
 
     private void cambiarAVistaInicio() {

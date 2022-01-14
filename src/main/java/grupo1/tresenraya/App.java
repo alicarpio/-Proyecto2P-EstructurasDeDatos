@@ -1,6 +1,7 @@
 package grupo1.tresenraya;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -20,6 +21,7 @@ public class App extends Application {
         App.setScene("inicio");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("images/xo.png"));
         primaryStage.show();
     }
 
