@@ -1,8 +1,11 @@
 package grupo1.tresenraya.controlador;
 
+import grupo1.tresenraya.App;
 import javafx.application.Platform;
 import javafx.event.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -10,7 +13,6 @@ import javafx.geometry.Insets;
 import javafx.fxml.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
-import javafx.scene.control.Label;
 
 import grupo1.tresenraya.modelo.*;
 
@@ -80,6 +82,20 @@ public class ControladorJuego {
         }).start();
     }
 
+    private void hacerJugada(Cell  cell) {
+        if (gameState.marcarCelda(cell)) {
+            actualizarTablero();
+            checkVictory();
+            empate();
+        }
+        if (modoJuego == ModoJuego.COMPUTADORA && !tablero.tableroLleno() && !tablero.won(cell.getJugador())) {
+            turnoComputadora();
+            actualizarTablero();
+            checkVictory();
+            empate();
+        }
+    }
+
     private void actualizarTablero() {
         tableroJuego.getChildren().clear();
         for (int i = 0; i < 3; i++) {
@@ -89,16 +105,9 @@ public class ControladorJuego {
                 st.getStyleClass().add("grid-cell");
                 if (cell.isMarked()) {
                     anadirMarca(cell, st);
-                    checkVictory(cell.getJugador());
-                    empate();
                 }
                 st.setOnMouseClicked(e -> {
-                    if (gameState.marcarCelda(cell))
-                        actualizarTablero();
-                    if (modoJuego == ModoJuego.COMPUTADORA) {
-                        turnoComputadora();
-                        actualizarTablero();
-                    }
+                    hacerJugada(cell);
                 });
                 tableroJuego.add(st, j, i);
             }
@@ -131,22 +140,36 @@ public class ControladorJuego {
         Circle circle2 = new Circle(CELL_WIDTH / 3.5, Color.WHITE);
         st.getChildren().addAll(circle1, circle2);
     }
-
     private void turnoComputadora() {
         gameState.marcarCelda(Computador.decidirJugada(tablero, computadora.getJugador()));
     }
 
-    private void checkVictory(Jugador jugador) {
-        if (tablero.won(jugador)) {
+    private void checkVictory() {
+        if (tablero.won(gameState.getJugador())) {
             System.out.println("Gano!");
-            System.exit(0);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "GANA "+gameState.getJugador());
+            alert.showAndWait();
+        }
+        else if (tablero.won(gameState.getJugador().getOponente())) {
+            System.out.println("Gano!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "GANA "+gameState.getJugador().getOponente());
+            alert.showAndWait();
+            cambiarAVistaInicio();
         }
     }
 
     private void empate() {
         if (tablero.tableroLleno()) {
             System.out.println("Empate!");
-            System.exit(0);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "EMPATE!! ");
+            alert.showAndWait();
+            cambiarAVistaInicio();
         }
+    }
+
+    private void cambiarAVistaInicio() {
+        Stage stage = (Stage) this.tableroJuego.getScene().getWindow();
+        App.setScene("inicio");
+        stage.setScene(App.scene);
     }
 }

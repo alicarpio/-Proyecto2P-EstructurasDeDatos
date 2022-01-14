@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class App extends Application {
 
-    private static Scene scene;
+    public static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -23,8 +23,12 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public static void setScene(String fxml) throws IOException {
-        scene = new Scene(loadFXML(fxml), 1000, 650);
+    public static void setScene(String fxml) {
+        try {
+            scene = new Scene(loadFXML(fxml), 1000, 650);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Parent loadFXML(String fxml) throws IOException {
