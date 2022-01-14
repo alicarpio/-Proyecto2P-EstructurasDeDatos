@@ -61,6 +61,11 @@ public class ControladorJuego {
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
 
+        if (modoJuego.equals(ModoJuego.COMPUTADORA)) {
+            Cell cCell = Computador.decidirJugada(tablero, gameState.getJugador());
+            gameState.marcarCelda(cCell);
+        }
+
         btnAyuda.setOnAction(this::showHint);
 
         actualizarTablero();

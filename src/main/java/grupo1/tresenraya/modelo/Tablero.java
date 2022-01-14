@@ -63,6 +63,31 @@ public class Tablero {
         return checkCols(jugador) || checkRows(jugador) || checkDiagonals(jugador);
     }
 
+    public int markedCells() {
+        int count = 0;
+        for (Cell[] arr : tablero) {
+            for (Cell cell : arr) {
+                if (cell.isMarked()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public Cell getLastCell() {
+        if (markedCells() == 8) {
+            for (Cell[] arr : tablero) {
+                for (Cell cell : arr) {
+                    if (!cell.isMarked()) {
+                        return cell;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public boolean checkCols(Jugador jugador) {
         return (jugadorMatches(0, 0, jugador) && jugadorMatches(0, 1, jugador) && jugadorMatches(0, 2, jugador))
                 || (jugadorMatches(1, 0, jugador) && jugadorMatches(1, 1, jugador) && jugadorMatches(1, 2, jugador))

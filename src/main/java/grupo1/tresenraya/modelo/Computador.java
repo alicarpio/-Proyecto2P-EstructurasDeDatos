@@ -42,6 +42,9 @@ public class Computador {
     }
 
     public static Cell decidirJugada(Tablero actual, Jugador jugador) {
+        if (actual.markedCells() == 8) {
+            return actual.getLastCell();
+        }
         RoseTree<Tablero> gameTree = Computador.generarTableros(actual, jugador);
 
         Comparator<RoseTree<Tablero>> cmp = (rt1, rt2) -> {
