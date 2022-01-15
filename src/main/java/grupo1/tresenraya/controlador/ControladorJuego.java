@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ControladorJuego {
     enum ModoJuego {
-        JUGADOR, COMPUTADORA
+        HUMANO, COMPUTADORA
     }
 
     @FXML
@@ -40,14 +40,21 @@ public class ControladorJuego {
 
     public ControladorJuego(String modoJuego, String modoJuego1, String pieza) {
         tablero = new Tablero();
+
         if (modoJuego.equals("Computer")) {
             this.modoJuego = ModoJuego.COMPUTADORA;
             computadora = new Computador(pieza.equals("X") ? Jugador.EQUIS : Jugador.CIRCULO);
+        } else {
+            this.modoJuego = ModoJuego.HUMANO;
         }
+
         if (modoJuego1.equals("Computer")) {
             this.modoJuego1 = ModoJuego.COMPUTADORA;
             computadora1 = new Computador(pieza.equals("X") ? Jugador.CIRCULO : Jugador.EQUIS);
+        } else {
+            this.modoJuego1 = ModoJuego.HUMANO;
         }
+
         gameState = new GameState(pieza.equals("X") ? Jugador.EQUIS : Jugador.CIRCULO);
     }
 
@@ -100,12 +107,20 @@ public class ControladorJuego {
             checkVictory(cell);
             empate();
         }
-        if (modoJuego == ModoJuego.COMPUTADORA && !tablero.tableroLleno() && !tablero.won(cell.getJugador())) {
-            Cell cCell = Computador.decidirJugada(tablero, computadora.getJugador());
-            gameState.marcarCelda(cCell);
-            actualizarTablero();
-            checkVictory(cCell);
-            empate();
+        if (!tablero.tableroLleno() && !tablero.won(gameState.getJugador())) {
+            Cell cCell = null;
+            if (computadora != null && modoJuego.equals(ModoJuego.COMPUTADORA)) {
+                cCell = Computador.decidirJugada(tablero, computadora.getJugador());
+            }
+            if (computadora1 != null && modoJuego1.equals(ModoJuego.COMPUTADORA)) {
+                cCell = Computador.decidirJugada(tablero, computadora1.getJugador());
+            }
+            if (cCell != null) {
+                gameState.marcarCelda(cCell);
+                actualizarTablero();
+                checkVictory(cCell);
+                empate();
+            }
         }
     }
 
