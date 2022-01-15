@@ -28,6 +28,8 @@ public class ControladorJuego {
     private GridPane tableroJuego;
     @FXML
     private Button btnAyuda;
+    @FXML
+    private Button btnNext;
 
     private GameState gameState;
     private Tablero tablero;
@@ -68,12 +70,17 @@ public class ControladorJuego {
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
 
-        if (modoJuego.equals(ModoJuego.COMPUTADORA)) {
+        if (modoJuego.equals(ModoJuego.COMPUTADORA) && modoJuego1.equals(ModoJuego.COMPUTADORA)) {
+            btnNext.setVisible(true);
+            btnNext.setDisable(false);
+        } else if (modoJuego.equals(ModoJuego.COMPUTADORA)) {
             Cell cCell = Computador.decidirJugada(tablero, gameState.getJugador());
             gameState.marcarCelda(cCell);
         }
 
+        btnNext.setOnAction(this::onNext);
         btnAyuda.setOnAction(this::showHint);
+
 
         actualizarTablero();
     }
@@ -101,13 +108,21 @@ public class ControladorJuego {
         }).start();
     }
 
+    private void onNext(ActionEvent e) {
+        computerTurn();
+    }
+
     private void hacerJugada(Cell  cell) {
         if (gameState.marcarCelda(cell)) {
             actualizarTablero();
             checkVictory(cell);
             empate();
         }
-        if (!tablero.tableroLleno() && !tablero.won(gameState.getJugador())) {
+        computerTurn();
+    }
+
+    private void computerTurn() {
+        if (!tablero.tableroLleno() && !tablero.won(gameState.getJugador().getOponente())) {
             Cell cCell = null;
             if (computadora != null && modoJuego.equals(ModoJuego.COMPUTADORA)) {
                 cCell = Computador.decidirJugada(tablero, computadora.getJugador());
@@ -134,9 +149,11 @@ public class ControladorJuego {
                 if (cell.isMarked()) {
                     anadirMarca(cell, st);
                 }
-                st.setOnMouseClicked(e -> {
-                    hacerJugada(cell);
-                });
+                if(!cell.isMarked() && (modoJuego.equals(ModoJuego.HUMANO) || modoJuego1.equals(ModoJuego.HUMANO))) {
+                    st.setOnMouseClicked(e -> {
+                        hacerJugada(cell);
+                    });
+                }
                 tableroJuego.add(st, j, i);
             }
         }
