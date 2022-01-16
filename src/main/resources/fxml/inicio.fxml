@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane alignment="center" maxHeight="650.0" maxWidth="1000.0" minHeight="650.0" minWidth="1000.0" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #1B1B1B;" xmlns:fx="http://javafx.com/fxml" fx:controller="grupo1.tresenraya.controlador.ControladorInicio">
-    <ImageView fitHeight="331.0" fitWidth="425.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+    <ImageView fitHeight="394.0" fitWidth="542.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
         <image>
             <Image url="@../images/xo.png" />
         </image>
@@ -27,7 +27,7 @@
             <Insets bottom="40.0" top="60.0" />
          </VBox.margin>
         </ImageView>
-      <HBox alignment="CENTER" maxHeight="90.0" maxWidth="1000.0" minHeight="90.0" minWidth="1000.0" prefHeight="90.0" prefWidth="1000.0" spacing="10.0">
+      <HBox alignment="CENTER" maxHeight="90.0" maxWidth="1000.0" minHeight="90.0" minWidth="1000.0" prefHeight="90.0" prefWidth="1000.0" spacing="200.0">
          <children>
             <VBox alignment="CENTER" maxHeight="80.0" maxWidth="400.0" minHeight="80.0" minWidth="400.0" prefHeight="80.0" prefWidth="400.0">
                <children>
@@ -87,7 +87,7 @@
             </VBox>
          </children>
          <VBox.margin>
-            <Insets bottom="30.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
       <VBox alignment="CENTER" maxHeight="80.0" maxWidth="400.0" minHeight="80.0" minWidth="400.0" prefHeight="80.0" prefWidth="400.0">

@@ -30,11 +30,16 @@ public class ControladorJuego {
     private Button btnAyuda;
     @FXML
     private Button btnNext;
+    @FXML
+    private ImageView player1;
+    @FXML
+    private ImageView player2;
 
     private GameState gameState;
     private Tablero tablero;
     private ModoJuego modoJuego;
     private ModoJuego modoJuego1;
+    private String token;
     private Computador computadora;
     private Computador computadora1;
 
@@ -42,7 +47,7 @@ public class ControladorJuego {
 
     public ControladorJuego(String modoJuego, String modoJuego1, String pieza) {
         tablero = new Tablero();
-
+        token = pieza;
         if (modoJuego.equals("Computer")) {
             this.modoJuego = ModoJuego.COMPUTADORA;
             computadora = new Computador(pieza.equals("X") ? Jugador.EQUIS : Jugador.CIRCULO);
@@ -69,6 +74,9 @@ public class ControladorJuego {
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
         tableroJuego.getRowConstraints().add(new RowConstraints(CELL_WIDTH));
+
+        player1.setImage(new Image(token.equals("X") ? "images/x-red.png" : "images/o-blue.png"));
+        player2.setImage(new Image(token.equals("X") ? "images/o-blue.png" : "images/x-red.png"));
 
         if (modoJuego.equals(ModoJuego.COMPUTADORA) && modoJuego1.equals(ModoJuego.COMPUTADORA)) {
             btnNext.setVisible(true);
