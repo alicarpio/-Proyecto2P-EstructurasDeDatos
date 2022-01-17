@@ -22,6 +22,7 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("images/xo.png"));
+        primaryStage.setTitle("Tic-Tac-Toe");
         primaryStage.show();
     }
 

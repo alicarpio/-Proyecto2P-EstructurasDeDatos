@@ -50,6 +50,7 @@ public class ControladorInicio {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 1000, 650);
         Stage stage = (Stage)this.rootPane.getScene().getWindow();
+        stage.setTitle("Tic-Tac-Toe");
         stage.setResizable(false);
         stage.setScene(scene);
     }
